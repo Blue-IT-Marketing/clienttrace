@@ -1,0 +1,73 @@
+application: client-trace
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+includes:
+- navigation.yaml
+- contact.yaml
+- accounts.yaml
+
+handlers:
+
+- url: /favicon.ico
+  static_files: static/dist/img/favicon.ico
+  upload: static/dist/img/favicon.ico
+  secure: always
+
+- url: /static
+  static_dir: static
+  secure: always
+
+- url: /static/bootstrap
+  static_dir: static/boostrap
+  secure: always
+- url: /service.js
+  static_files: static/service.js
+  upload: static/service.js
+  expiration: 0m
+
+- url: /static/sw/sw-toolbox.js
+  static_files: static/sw/sw-toolbox.js
+  upload: static/sw/sw-toolbox.js
+  expiration: 0m
+
+
+- url: /login
+  script: myLogin.app
+  secure: always
+
+- url: /logout
+  script: myLogin.app
+  secure: always
+
+- url: /about
+  script: main.app
+  secure: always
+
+- url: /terms
+  script: main.app
+  secure: always
+
+- url: /privacy
+  script: main.app
+  secure: always
+
+- url: .*
+  script: main.app
+  secure: always
+
+libraries:
+
+- name: webapp2
+  version: "2.5.2"
+
+- name: jinja2
+  version: "latest"
+
+inbound_services:
+
+- mail
+- warmup
+- channel_presence
